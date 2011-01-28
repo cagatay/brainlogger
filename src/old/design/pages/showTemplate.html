@@ -1,0 +1,50 @@
+{% extends "baseTemplate.html" %}
+
+{% block title %} {{ query }} {% endblock %}
+
+{% block content %}
+    <article>
+    {% if entries %}
+      <header class="entryheader">
+        {% if previous or next %}
+          <div class="navprev">
+            {% if previous %}
+            <a href="show?q={{ query }}&amp;p={{ previous }}" style="font-size:x-large;">&#171;</a>
+            {% endif %}
+          </div>
+          <div class="navnext">
+            {% if next %}
+            <a href="show?q={{ query }}&amp;p={{ next }}" style="font-size:x-large;">&#187;</a>
+            {% endif %}
+          </div>
+        {% endif %}
+        <h3 style="word-wrap:break-word;">{{query}}</h3>
+        {% if user %}<input id="formbutton" class="searchbutton" type="button" value="write" onclick="showForm();" style="float:right;">{% endif %}
+        </header>
+        <form id="entryform" action="/post" method="post">
+        <div>
+          <textarea name="content" class="entrybox" rows="8" placeholder="write something..."></textarea>
+        </div>
+        <div style="text-align: right;">
+          <input type="text" name="tags" placeholder="tags">
+          <input type="submit" value="ok">
+        </div>
+        <input type="hidden" name="title" value="{{query}}">
+      </form>
+      {% for entry in entries %}
+        <section>
+          <div class="entryContent">{{ entry.content|escape|linebreaks }}</div>
+          <div class="entryinfo">{{ entry.dateAdded }} by {{ entry.author.nickname }}</div>
+        </section>
+      {% endfor %}
+      {% else %}
+          {% if user %}
+          {% else %}
+          <header>{{ query }}</header>
+            <section>
+              there's nothing here. <a style="color:black;" href="{{loglink}}">be the first!</a>
+            </section>
+          {% endif %}
+      {% endif %}
+    </article>
+{% endblock %}

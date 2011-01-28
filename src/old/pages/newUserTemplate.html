@@ -1,0 +1,21 @@
+{% extends 'baseTemplate.html' %}
+
+{% block nav %} {% endblock %}
+
+{% block content %}
+
+<article>
+  <header>
+    choose a nickname
+  </header>
+  <section>
+    <form action="/newUser" method="post">
+      <input name="nickname" type="text"> <input type="submit" value="ok">  
+    </form>
+  </section>
+  {% if message %}
+  <footer style="color:red">{{ message }}</footer>
+  {% endif %}
+</article>
+
+{% endblock %}

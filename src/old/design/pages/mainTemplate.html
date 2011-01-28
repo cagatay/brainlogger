@@ -1,0 +1,38 @@
+{% extends "baseTemplate.html" %}
+  {% block content %}
+      <article>
+        <nav>
+          <p class="navprev">
+            {% if previous %}
+            <a href="show?q={{ query }}&amp;p={{ previous }}">&#171;</a>
+            {% endif %}
+          <p class="navnext">
+            {% if next %}
+            <a href="show?q={{ query }}&amp;p={{ next }}">&#187;</a>
+            {% endif %}
+        </nav>
+        {% for entry in entries %}
+        <section>
+          <header class="entryheader">
+            <a href="/show?q={{ entry.title|urlencode }}"><h3 style="word-wrap:break-word;">{{entry.title}}</h3></a>
+          </header>
+          <details class="entryinfo">
+            <p><time>{{ entry.dateAdded }}</time> by {{ entry.author.nickname }}
+          </details>
+          <div class="entryContent" id="{{entry.key.id}}">
+            {{ entry.content|escape|linebreaksbr}}
+          <!--<footer style="text-align:right;">
+            <label id="{{ entry.key }}l">{{ entry.likes }}</label>
+            <input type="button" value="&#9650;">
+            <label id="{{ entry.key.id }}d">{{ entry.dislikes }}</label>
+            <input type="button" value="&#9660;" onclick="Request('dislikeEntry', '{{ entry.key.id }}');">
+            <input type="button" value="&#9829;">
+          </footer>-->
+            <footer class="entryFooter">
+              <a>&#8593;&#8595;</a>
+            </footer>
+          </div>
+        </section>
+        {% endfor %}
+      </article>
+  {% endblock %}

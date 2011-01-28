@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<script>
+  function g(i){return document.getElementById(i);}
+  
+  function Request(function_name, opt_argv) {
+    if (!opt_argv)
+      opt_argv = new Array();
+
+    // Find if the last arg is a callback function; save it
+    var callback = null;
+    var len = opt_argv.length;
+    if (len > 0 && typeof opt_argv[len-1] == 'function') {
+      callback = opt_argv[len-1];
+      opt_argv.length--;
+    }
+    var async = (callback != null);
+
+    // Build an Array of parameters, w/ function_name being the first parameter
+    var params = new Array(function_name);
+    for (var i = 0; i < opt_argv.length; i++) {
+      params.push(opt_argv[i]);
+    }
+    var body = JSON.stringify(params);
+
+    // Create an XMLHttpRequest 'POST' request w/ an optional callback handler
+    var req = new XMLHttpRequest();
+    req.open('POST', '/rpc', async);
+
+    req.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+
+    if (async) {
+      req.onreadystatechange = function() {
+        if(req.readyState == 4 && req.status == 200) {
+          var response = null;
+          try {
+            response = JSON.parse(req.responseText);
+          } catch (e) {
+            response = req.responseText;
+          }
+          callback(response);
+        }
+      }
+    }
+
+    // Make the actual request
+    req.send(body);
+    //eval(req.responseText);
+    return req.responseText;
+  }
+
+</script>
+
+<style>
+
+  html, body, header, nav{
+    margin: 0;
+    padding: 0;
+    font-family: Helvetica;
+    font-size: 14px;
+  }
+  
+  a, a:visited, a:focus, a:hover, a:active{
+    text-decoration: none;
+    color: inherit;
+  }
+  
+  button{
+    border: none;
+    font-size: large;
+    background-color: #127BCA;
+    color: #fff;
+  }
+  
+  #topHeader{
+    background-color: #C6DAF0;
+    padding: 0 3px 2px 3px;
+    color: #127BCA;
+    margin: 4px 4px 4px 4px;
+    padding: 3px 3px 3px 3px;
+    max-width: 800px;
+    min-width: 400px;
+  }
+  
+  #searchButton{
+    margin-left: 0;
+  }
+  
+  #searchField{
+    border: none;
+    width: 80%;
+    font-size: large;
+    color: #76787C;
+  }
+  
+  #topNav{
+    text-align: right;
+    padding: 4px 4px 4px 4px;
+    color: #76787C;
+  }
+  
+  .entryList{
+    padding: 4px 4px 4px 4px;
+    display: none;
+  }
+</style>
+<nav id="topNav">
+    {% if user %}{{user}} | {% endif %}
+    <a href="{{loginoutlink}}">{{ loginouttext }}</a>
+</nav>
+<header id="topHeader">
+  brainlogger <input type="search" name="q" id="searchField"><button id="searchButton">get</button>
+</header>
+{% block content %} {% endblock %}
+
+<script>
+  var e = g("searchButton");
+  e.onclick = function(){ 
+    f = g("searchField").value;
+    f = Request('getTitle', new Array(f));
+    a = g("entryList");
+    a.innerHTML = f;
+    /*m = g("writeButton");
+    m.onclick = function(){
+      f = g("writeBox");
+      if(f.hidden){
+        f.hidden = false;
+        this.innerHTML = 'discard';
+      }
+      else{
+        f.hidden = true;
+        this.innerHTML = 'write';
+      }
+    }*/
+  }
+</script>

@@ -1,0 +1,105 @@
+body{
+  margin: 0;
+  padding: 0;
+  padding-bottom: 10px;
+  font-family: 'Georgia';
+}
+
+section{
+  background-color: #fff;
+  color: #76787c;
+  font-size: 12px;
+  border-bottom: 1px solid #c6daf0;
+}
+
+.entryinfo{
+  text-align: right;
+  font-size: x-small;
+  color: #76787C;
+}
+
+.entryFooter{
+  text-align: right;
+}
+
+.entryContent{
+    text-align: justify;
+}
+
+.navprev{
+  float:left;
+  text-align:left;
+  width:50%;
+  margin:0;
+  height:29px;
+}
+
+.navnext{
+  float:right;
+  text-align:right;
+  width:50%;
+  margin:0;
+  height:29px;
+}
+article{
+  /*background-color: #c6daF0;*/
+  color:#007ec5;
+  /*padding: 10px 10px 10px 10px;*/
+  margin-top: 10px;
+  margin-left: 10px;
+  width: 60%;
+}
+
+.topbar{
+  background-color: #c6daf0;
+  color: #007ec5;
+}
+
+.searchForm{
+  display: inline;
+  padding: 0px;
+  margin-left: 5px;
+}
+
+.searchbox{
+  border: none;
+  text-align: right;
+  padding: 2px;
+}
+
+h3{
+  margin:0;
+}
+
+.searchbutton{
+  background-color: #007ec5;
+  color: #fff;
+  border: none;
+}
+
+.entryheader{
+  text-align: left;
+  border:none;
+  color: #007EC5;
+  font-weight: bold;
+  overflow: hidden;
+}
+
+#entryform{
+  display: none;
+  margin: 8px;
+  padding-bottom: 5px;
+  border-bottom: 1px solid #c6daf0;
+}
+
+.entrybox{
+  width: 100%;
+  height: 80%;
+}
+nav.topnav{
+  float:right;
+}
+
+a{
+  text-decoration:none;
+}

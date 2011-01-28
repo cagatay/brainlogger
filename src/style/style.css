@@ -1,0 +1,29 @@
+body {
+  font-family: "Times New Roman";
+}
+
+#th {
+  padding: 5px 3px 5px 3px;
+  display: table;
+  width: 100%;
+  margin: auto;
+}
+
+form.if {
+  display:inline;
+}
+
+#ud {
+  display: table-cell;
+  float: right;
+}
+
+#ct {
+  width: 80%;
+  height: 100px;
+  margin: auto;
+}
+
+#logo {
+  float: left;
+}
